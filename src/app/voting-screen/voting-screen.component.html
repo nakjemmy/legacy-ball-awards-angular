@@ -1,0 +1,43 @@
+<mat-sidenav-container (backdropClick)="sidenav.toggle()" class="example-container" autosize>
+    <mat-sidenav class="mat-sidenav" position="end" #sidenav mode="cover" [(opened)]="sideNavOpened" (opened)="sideNavEvents.push('open!')" (closed)="sideNavEvents.push('close!')">
+        <h2 class="text-center">Selected Candidates</h2>
+        <mat-list class="side-list">
+            <!-- <h3 mat-subheader style="color: #000">Folders</h3> -->
+            <div *ngFor="let category of preparedList">
+                <mat-list-item *ngIf="category.nominees[0]">
+                    <mat-icon style="color:#7b1fa2" mat-list-icon>person</mat-icon>
+                    <h4 mat-line style="color:#7b1fa2">{{ category.name }}</h4>
+                    <p mat-line style="color: #000; font-size: 1.1rem; font-style: italic; font-weight: 500"> {{ category.nominees[0].name}} </p>
+                </mat-list-item>
+            </div>
+
+            <!-- <mat-divider></mat-divider> -->
+        </mat-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content style="height: 100vh">
+        <mat-toolbar color="primary">
+            <mat-toolbar-row>
+                <span>Legacy Ball Awards</span>
+                <span class="toolbar-spacer"></span>
+                <mat-icon (click)="sidenav.toggle()" class="toolbar-icon" aria-hidden="false" aria-label="Example view_list icon">
+                    view_list
+                </mat-icon>
+            </mat-toolbar-row>
+        </mat-toolbar>
+        <mat-tab-group color="warn" headerPosition="before">
+            <mat-tab *ngFor="let category of categories; index as categoryIndex" label="{{ category.name }}">
+                <ng-template matTabContent>
+                    <mat-grid-list [cols]="breakpoint" rowHeight="5:8" gutterSize="1rem" (window:resize)="onResize($event)">
+                        <mat-grid-tile (click)="addToVoteList(category.id, nominee.id)" *ngFor="let nominee of category.nominees">
+                            <mat-card class="example-card">
+                                <img mat-card-image src="../../assets/images/test.jpg" alt="Photo of a Shiba Inu" />
+                                <mat-card-title class="candidate-name">{{ nominee.name }}</mat-card-title>
+                            </mat-card>
+                        </mat-grid-tile>
+                    </mat-grid-list>
+                </ng-template>
+            </mat-tab>
+        </mat-tab-group>
+    </mat-sidenav-content>
+</mat-sidenav-container>

@@ -1,7 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { VotingScreenComponent } from './voting-screen/voting-screen.component';
 
-const routes: Routes = [];
+const routes: Routes = [{
+  path: '', component: VotingScreenComponent
+}];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
