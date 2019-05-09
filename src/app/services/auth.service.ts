@@ -37,10 +37,10 @@ export class AuthService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' });
     return this.http.post(baseURL + 'coupons/verify', body, { headers })
       .subscribe((res: any) => {
-        console.log(res);
         localStorage.setItem(this.TOKEN_KEY, JSON.stringify(res.coupon));
         this.router.navigateByUrl('/vote');
       }, ({error}) => {
+
         this.pnotify.error({
           text: error.message
         });
