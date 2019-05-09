@@ -9,12 +9,9 @@ export interface Nominee {
   id: string;
   name: string;
   image: string;
-
-  // function getCategory(){}
 }
 
 export interface Vote {
-  candidateId: string;
+  nomineeId: string;
   categoryId: string;
-  count: number;
 }

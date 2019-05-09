@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Category, Nominee } from '../shared/vote';
+import { Category, Nominee, Vote } from '../shared/vote';
 import { map } from 'rxjs/operators';
 import { baseURL } from '../shared/baseUrl';
 // import { AuthService } from './auth.service';
@@ -13,11 +13,18 @@ import { Router } from '@angular/router';
 export class VoteService {
 
   constructor(private http: HttpClient, private router: Router) { }
-
+  TOKEN_KEY = 'coupon';
   getCategories(): Observable<any> {
     return this.http.get(baseURL + 'categories')
     .pipe(
       map((data: any) => data.categories)
+    );
+  }
+
+  getNominees(): Observable<any> {
+    return this.http.get(baseURL + 'nominees')
+    .pipe(
+      map((data: any) => data.nominees)
     );
   }
 
@@ -28,15 +35,13 @@ export class VoteService {
     );
   }
 
-  // postVote(content: Nominee[], voterId: number): Observable<any> {
-  //   const token = this.auth.getToken();
-  //   const body = JSON.stringify({candidates: content, voter_id: voterId});
-  //   const headers = new HttpHeaders({'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest'});
-  //   return this.http.post(baseURL + 'api/castvote?token=' + token, body, {headers: headers});
-  // }
+  postVote(votes: Vote[]): Observable<any> {
+    const body = JSON.stringify({votes, coupon: this.getCouponFromLocalStore()});
+    const headers = new HttpHeaders({'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest'});
+    return this.http.post(baseURL + 'votes/castvote', body, {headers});
+  }
 
-  // logout() {
-  //   localStorage.clear();
-  //   this.router.navigateByUrl('/');
-  // }
+  getCouponFromLocalStore() {
+    return JSON.parse(localStorage.getItem(this.TOKEN_KEY));
+  }
 }

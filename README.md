@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # LegacyBall
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.8.
@@ -26,6 +25,3 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
-=======
-# legacy-ball-awards-angular
->>>>>>> c97e1ac40f74b3ee35999ec2d6dde9d7610c8325

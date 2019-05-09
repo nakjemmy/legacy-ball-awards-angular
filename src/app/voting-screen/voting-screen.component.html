@@ -1,17 +1,31 @@
 <mat-sidenav-container (backdropClick)="sidenav.toggle()" class="example-container" autosize>
     <mat-sidenav class="mat-sidenav" position="end" #sidenav mode="cover" [(opened)]="sideNavOpened" (opened)="sideNavEvents.push('open!')" (closed)="sideNavEvents.push('close!')">
-        <h2 class="text-center">Selected Candidates</h2>
+
+        <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="10px" style="margin-top: 20px">
+            <mat-icon style="font-size: 30px" (click)="sidenav.toggle()" class="toolbar-icon" aria-hidden="false" aria-label="Example view_list icon">
+                view_list
+            </mat-icon>
+            <h3 class="text-center mat-h1" style="margin-top: 15px">Selected Candidates</h3>
+        </div>
         <mat-list class="side-list">
-            <!-- <h3 mat-subheader style="color: #000">Folders</h3> -->
-            <div *ngFor="let category of preparedList">
-                <mat-list-item *ngIf="category.nominees[0]">
+            <div *ngFor="let vote of votes; index as voteIndex">
+                <mat-list-item *ngIf="vote">
                     <mat-icon style="color:#7b1fa2" mat-list-icon>person</mat-icon>
-                    <h4 mat-line style="color:#7b1fa2">{{ category.name }}</h4>
-                    <p mat-line style="color: #000; font-size: 1.1rem; font-style: italic; font-weight: 500"> {{ category.nominees[0].name}} </p>
+                    <h4 mat-line style="color:#7b1fa2">
+                        {{ getCategoryById(vote.categoryId).name }}
+                    </h4>
+                    <p mat-line style="color: #000; font-size: 1.1rem; font-style: italic; font-weight: 500">
+                        {{ getNomieeById(vote.nomineeId).name }}
+                    </p>
+                    <button mat-icon-button (click)="removeVote(voteIndex)">
+            <mat-icon style="color:#e60d0d" class="mat-18">delete</mat-icon>
+          </button>
                 </mat-list-item>
             </div>
-
-            <!-- <mat-divider></mat-divider> -->
+            <mat-divider></mat-divider>
+            <button [disabled]="votes.length === 0" style="width: 50%; font-size: 18px; margin: 20px auto auto 20px;" mat-raised-button color="primary" (click)="submitVote()">
+        Submit
+      </button>
         </mat-list>
     </mat-sidenav>
 
@@ -20,19 +34,28 @@
             <mat-toolbar-row>
                 <span>Legacy Ball Awards</span>
                 <span class="toolbar-spacer"></span>
+                <mat-icon (click)="refresh()" class="toolbar-icon" aria-hidden="false" aria-label="Example view_list icon">
+                    refresh
+                </mat-icon>
                 <mat-icon (click)="sidenav.toggle()" class="toolbar-icon" aria-hidden="false" aria-label="Example view_list icon">
                     view_list
                 </mat-icon>
+                <mat-icon (click)="logout()" class="toolbar-icon" aria-hidden="false" aria-label="Example view_list icon">
+                    exit_to_app
+                </mat-icon>
             </mat-toolbar-row>
         </mat-toolbar>
-        <mat-tab-group color="warn" headerPosition="before">
+        <mat-tab-group color="primary" headerPosition="before">
             <mat-tab *ngFor="let category of categories; index as categoryIndex" label="{{ category.name }}">
                 <ng-template matTabContent>
                     <mat-grid-list [cols]="breakpoint" rowHeight="5:8" gutterSize="1rem" (window:resize)="onResize($event)">
-                        <mat-grid-tile (click)="addToVoteList(category.id, nominee.id)" *ngFor="let nominee of category.nominees">
+                        <mat-grid-tile style="cursor: pointer" (click)="addToVoteList(category.id, nominee.id)" *ngFor="let nominee of category.nominees">
+                            <mat-icon *ngIf="checkIfSelected(category.id, nominee.id)" style="z-index: 9999999; color:#e6c50d; font-size: 350%; position: absolute; top: 50%; right: 50%;" class="mat-18">check_circle_outline</mat-icon>
+
                             <mat-card class="example-card">
-                                <img mat-card-image src="../../assets/images/test.jpg" alt="Photo of a Shiba Inu" />
-                                <mat-card-title class="candidate-name">{{ nominee.name }}</mat-card-title>
+                                <img mat-card-image src="{{ '../../assets/images/'+nominee.image+'.jpg' }}" alt="Photo of a Shiba Inu" />
+                                <mat-card-title class="candidate-name">{{ nominee.name }}
+                                </mat-card-title>
                             </mat-card>
                         </mat-grid-tile>
                     </mat-grid-list>

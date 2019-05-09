@@ -1,0 +1,12 @@
+<div style="margin-top: 25vh" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center center" fxLayoutGap="10px">
+    <mat-card style="padding: 5vh;" fxLayout="column" fxLayoutAlign="center center">
+        <h1 style="text-align: center">SRC LEGACY BALL AWARDS</h1>
+        <div>
+            <mat-form-field style="width: 100%" color="primary" appearance="outline">
+                <mat-label>Coupon Code</mat-label>
+                <input style="width: 100%" matInput #coupon formControlName="coupon" type="text" required />
+            </mat-form-field><br>
+            <button [disabled]="coupon.value.length < 8" (click)="onSubmit(coupon)" style="width: 100%; height: 40px" mat-raised-button color="primary">Login</button>
+        </div>
+    </mat-card>
+</div>
