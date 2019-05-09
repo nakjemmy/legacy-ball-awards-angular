@@ -44,4 +44,11 @@ export class VoteService {
   getCouponFromLocalStore() {
     return JSON.parse(localStorage.getItem(this.TOKEN_KEY));
   }
+
+  getVotes() {
+    return this.http.get(baseURL + 'votes')
+    .pipe(
+      map((data: any) => data.votes)
+    );
+  }
 }

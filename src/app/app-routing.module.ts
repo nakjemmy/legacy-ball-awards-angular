@@ -3,11 +3,12 @@ import { Routes, RouterModule } from '@angular/router';
 import { VotingScreenComponent } from './voting-screen/voting-screen.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './guards/auth.guard';
+import { ResultComponent } from './result/result.component';
 
 const routes: Routes = [
   { path: 'vote', component: VotingScreenComponent, canActivate: [AuthGuard] },
   { path: '', component: LoginComponent },
-  // { path: '**', redirectTo: '' }
+  { path: 'results', component: ResultComponent }
 ];
 
 @NgModule({

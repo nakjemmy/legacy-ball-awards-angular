@@ -20,6 +20,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { PnotifyService } from './services/pnotify.service';
+import { ResultComponent } from './result/result.component';
 
 
 
@@ -27,7 +28,8 @@ import { PnotifyService } from './services/pnotify.service';
   declarations: [
     AppComponent,
     VotingScreenComponent,
-    LoginComponent
+    LoginComponent,
+    ResultComponent
   ],
   imports: [
     BrowserModule,
