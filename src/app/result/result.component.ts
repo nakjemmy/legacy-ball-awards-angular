@@ -17,27 +17,7 @@ export class ResultComponent implements OnInit {
   constructor(private voteService: VoteService) { }
 
   ngOnInit() {
-    this.voteService.getCategories().subscribe(categories => {
-      this.categories = categories;
-      this.voteService.getVotes().subscribe(votes => {
-        this.votes = votes;
-        this.categories.forEach(category => {
-          category.nominees = [];
-          this.votes.forEach(vote => {
-            if (vote.category.id === category.id) {
-              category.nominees.push({ name: vote.nominee.name, voteCount: vote.voteCount });
-            }
-          });
-        });
-
-        this.categories.forEach((category, index) => {
-          this.prepareChart(category, index);
-          if (this.charts.length === this.categories.length) {
-            this.chartReady = true;
-          }
-        });
-      });
-    });
+    this.prepareData();
   }
 
 
@@ -73,6 +53,32 @@ export class ResultComponent implements OnInit {
   }
 
 
+  prepareData() {
+    this.voteService.getCategories().subscribe(categories => {
+      this.categories = categories;
+      this.voteService.getVotes().subscribe(votes => {
+        this.votes = votes;
+        this.categories.forEach(category => {
+          category.nominees = [];
+          this.votes.forEach(vote => {
+            if (vote.category.id === category.id) {
+              category.nominees.push({ name: vote.nominee.name, voteCount: vote.voteCount });
+            }
+          });
+        });
 
+        this.categories.forEach((category, index) => {
+          this.prepareChart(category, index);
+          if (this.charts.length === this.categories.length) {
+            this.chartReady = true;
+          }
+        });
+      });
+    });
+  }
+
+  refresh() {
+    this.prepareData();
+  }
 
 }

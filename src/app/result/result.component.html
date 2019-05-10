@@ -1,3 +1,12 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <span>Legacy Ball Awards Results</span>
+        <span class="toolbar-spacer"></span>
+        <mat-icon (click)="refresh()" class="toolbar-icon" aria-hidden="false" aria-label="Example view_list icon">
+            refresh
+        </mat-icon>
+    </mat-toolbar-row>
+</mat-toolbar>
 <mat-grid-list style="background-color: grey; margin: 20px" cols="2" rowHeight="4:3" gutterSize="20px">
     <mat-grid-tile *ngFor="let category of categories; index as catIndex">
         <mat-card style="width: 100%;">

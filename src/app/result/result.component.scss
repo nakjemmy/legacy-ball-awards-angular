@@ -1,3 +1,16 @@
 body {
     background-color: gray;
 }
+
+.toolbar-icon {
+    padding: 0 14px;
+    cursor: pointer;
+}
+
+.toolbar-spacer {
+    flex: 1 1 auto;
+}
+
+.mat-tab-body-wrapper {
+    padding: 1rem;
+}
