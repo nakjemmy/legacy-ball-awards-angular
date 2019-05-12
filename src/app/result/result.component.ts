@@ -86,7 +86,6 @@ export class ResultComponent implements OnInit {
       this.categories = categories;
       this.voteService.getVotes().subscribe(votes => {
         this.votes = votes;
-        console.log(votes);
         this.categories.forEach(category => {
           category.nominees = [];
           this.votes.forEach(vote => {
