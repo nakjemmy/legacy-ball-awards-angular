@@ -8,7 +8,7 @@ import { ResultComponent } from './result/result.component';
 const routes: Routes = [
   { path: 'vote', component: VotingScreenComponent, canActivate: [AuthGuard] },
   { path: '', component: LoginComponent },
-  { path: 'voc', component: ResultComponent }
+  { path: 'results', component: ResultComponent }
 ];
 
 @NgModule({

@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { VoteResult, Category } from '../shared/vote';
 import { VoteService } from '../services/vote.service';
 import { Chart } from 'chart.js';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-result',
@@ -14,9 +15,16 @@ export class ResultComponent implements OnInit {
   categories: any = [];
   charts = [];
   chartReady = false;
-  constructor(private voteService: VoteService) { }
+  password = 'youDont$$NOE';
+  constructor(private voteService: VoteService, private router: Router) { }
 
   ngOnInit() {
+    const promptRes = prompt('Enter Password');
+    if (!promptRes || promptRes !== this.password) {
+      alert('Incorrect Password');
+      this.router.navigateByUrl('/');
+      return false;
+    }
     this.prepareData();
   }
 
